@@ -40,8 +40,7 @@ releaseNotes: >-
   - You can now now choose to open private channels, which offer increased privacy but limited routing capabilities compared to public channels.
 developer: Umbrel
 website: https://umbrel.com
-dependencies:
-  - bitcoin
+dependencies: []
 repo: https://github.com/getumbrel/umbrel-lightning
 support: https://community.getumbrel.com/c/bitcoin-and-lightning
 port: 2101
