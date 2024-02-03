@@ -49,7 +49,7 @@ services:
       LN_PATH: "${CORE_LIGHTNING_PATH}"
     volumes:
       - "${APP_CORE_LIGHTNING_REST_CERT_DIR}:/usr/src/app/certs"
-      - "${APP_DATA_DIR}/data/lightningd:${CORE_LIGHTNING_PATH}"
+      - "${APP_CORE_LIGHTNING_DATA_DIR}:${CORE_LIGHTNING_PATH}"
     networks:
       default:
         ipv4_address: ${APP_CORE_LIGHTNING_REST_IP}
@@ -76,7 +76,7 @@ services:
       - --experimental-offers
       - --grpc-port=${APP_CORE_LIGHTNING_DAEMON_GRPC_PORT}
     volumes:
-      - "${APP_DATA_DIR}/data/lightningd:${CORE_LIGHTNING_PATH}"
+      - "${APP_CORE_LIGHTNING_DATA_DIR}:${CORE_LIGHTNING_PATH}"
     networks:
       default:
         ipv4_address: ${APP_CORE_LIGHTNING_DAEMON_IP}
