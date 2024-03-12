@@ -17,6 +17,26 @@ services:
       MACAROON_PATH: /c-lightning-rest/certs
       RTL_CONFIG_PATH: /data/
       RTL_COOKIE_PATH: /data/.cookie
+      # Boltz
+      BOLTZ_SERVER_URL: "https://core-lightning-rtl_boltz_1:9003"
+      BOLTZ_MACAROON_PATH: "/boltz/.boltz/macaroons"
     volumes:
       - "${APP_DATA_DIR}/data/rtl:/data"
       - "${APP_CORE_LIGHTNING_REST_CERT_DIR}:/c-lightning-rest/certs"
+
+  boltz:
+    image: boltz/boltz-client:2.0.0@sha256:3fcc9a6215d96817559a30593c31212c8559545826ebfd7716b947b464d52623
+    restart: "on-failure"
+    stop_grace_period: "1m"
+    environment:
+      HOME: "/data"
+    volumes:
+      - "${APP_DATA_DIR}/boltz:/data"
+      - "${APP_CORE_LIGHTNING_DATA_DIR}:/cln:ro"
+    command:
+      - --network=$APP_BITCOIN_NETWORK
+      - --cln.datadir=/cln
+      - --cln.host=$APP_CORE_LIGHTNING_DAEMON_IP
+      - --cln.port=$APP_CORE_LIGHTNING_DAEMON_GRPC_PORT
+      - --rpc.rest.host="0.0.0.0"
+      - --rpc.rest.port="9003"
